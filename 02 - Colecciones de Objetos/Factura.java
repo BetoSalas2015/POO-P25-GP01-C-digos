@@ -26,7 +26,7 @@ public class Factura
         return articulos.size();
     }
     
-    public void agregaArticulo(Object art) {
+    public void agregaArticulo(Articulo art) {
         articulos.add(art);
     }
     
@@ -34,9 +34,19 @@ public class Factura
         return articulos.get(index);
     }
     
+    public void setArticulo(int index, Articulo art) {
+        articulos.set(index, art);
+    }
     
-    
- 
+     public double calculaTotalArticulos() {
+         Articulo recorre;
+         double suma = 0.0;
+         for(int i = 0; i < articulos.size(); i++) {
+             recorre = (Articulo) getArticulo(i);
+             suma += recorre.importe();
+         }
+         return suma;
+     }
 }
 
 
