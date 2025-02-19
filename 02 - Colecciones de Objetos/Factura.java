@@ -12,14 +12,14 @@ public class Factura
     private String empresa;
     private String cliente;
     private static int num = 1;
-    private Vector articulos;
+    private Vector<Articulo> articulos;
     private int folio;
     
     public Factura(String nomC) {
         empresa = new String("Papeleria Sony");
         cliente = new String(nomC);
         folio = num++;
-        articulos = new Vector();
+        articulos = new Vector<Articulo>();
     }
     
     public int getNumArticulos() {
@@ -30,7 +30,7 @@ public class Factura
         articulos.add(art);
     }
     
-    public Object getArticulo(int index) {
+    public Articulo getArticulo(int index) {
         return articulos.get(index);
     }
     
@@ -42,7 +42,7 @@ public class Factura
          Articulo recorre;
          double suma = 0.0;
          for(int i = 0; i < articulos.size(); i++) {
-             recorre = (Articulo) getArticulo(i);
+             recorre = getArticulo(i);
              suma += recorre.importe();
          }
          return suma;
