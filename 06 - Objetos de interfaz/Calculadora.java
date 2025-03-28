@@ -43,7 +43,7 @@ public class Calculadora extends Frame {
         pnlTeclado.add(btnMas);
 
         pnlDisplay.setLayout(new BorderLayout() );
-        pnlDisplay.add(btnC, "East");
+        pnlDisplay.add(btnC, "East") ;
         pnlDisplay.add(txtDisplay,"Center");
 
         //  BorderLayout es default a Frame
