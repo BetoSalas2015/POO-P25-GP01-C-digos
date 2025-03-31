@@ -5,6 +5,10 @@ public class Calculadora extends Frame {
     private Button btnMas, btnMenos, btnMult, btnDiv, btnPunto, btnIgual, btnC;
     private TextField txtDisplay;
     private Panel pnlTeclado, pnlDisplay;
+    private double numero1, numero2, resultado;
+    private char operación;
+    private boolean operando, punto;
+    private String displayNum, sign;
 
     public Calculadora() {
         super("Calculadora"); 
@@ -49,8 +53,33 @@ public class Calculadora extends Frame {
         //  BorderLayout es default a Frame
         add(pnlDisplay, "North");
         add(pnlTeclado, "Center");
+
+        // Inicializar estado de calculadora
+        punto = operando = true;
     }
 
+    public boolean handleEvent(Event e) {
+        if( e.id == Event.WINDOW_DESTROY) {
+            hide();
+            dispose();
+            return true;
+        }
+        return super.handleEvent(e);
+    }
+
+    public boolean action(Event e, Object o) {
+        if (e.target instanceof Button) {
+            if (e.target == btnC) {
+                txtDisplay.setText("0");
+                punto = operando = true;
+                numero1 = numero2 = resultado = 0;
+            } else {
+                
+            }
+        }
+
+        return super.action(e, o);
+    }
 
     public static void main(String args[]) {
         Calculadora calc = new Calculadora();
