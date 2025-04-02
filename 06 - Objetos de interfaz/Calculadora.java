@@ -6,7 +6,7 @@ public class Calculadora extends Frame {
     private TextField txtDisplay;
     private Panel pnlTeclado, pnlDisplay;
     private double numero1, numero2, resultado;
-    private char operación;
+    private char operacion;
     private boolean operando, punto;
     private String displayNum, sign;
 
@@ -74,11 +74,56 @@ public class Calculadora extends Frame {
                 punto = operando = true;
                 numero1 = numero2 = resultado = 0;
             } else {
-                
+                if (e.target == btnMas || e.target == btnMenos || 
+                     e.target == btnMult || e.target == btnDiv) {
+                    if (operando) {
+                        Button btnTemp = (Button) e.target;
+                        sign = new String(btnTemp.getLabel());
+                        operacion = sign.charAt(0);
+                        numero1 = Double.parseDouble(txtDisplay.getText());
+                        txtDisplay.setText("0");
+                        operando = false;
+                        punto = true;
+                    }
+                } else {
+                    if (e.target == btnPunto) {
+                        if (punto) {
+                            displayNum = new String( txtDisplay.getText());
+                            displayNum = displayNum + ".";
+                            txtDisplay.setText(displayNum);
+                            punto = false;
+                        }
+                    } else {
+                        if (e.target == btnIgual) {
+                            numero2 = Double.parseDouble(txtDisplay.getText());
+                            switch (operacion) {
+                                case '+': resultado = numero1 + numero2; break;
+                                case '-': resultado = numero1 - numero2; break;
+                                case '*': resultado = numero1 * numero2; break;
+                                case '/': resultado = numero1 / numero2; break;
+                            }
+                            txtDisplay.setText(String.valueOf(resultado));
+                            operando = punto = true;
+                        } else {
+                            displayNum = new String(txtDisplay.getText());
+                            if (displayNum.equals("0")) {
+                                displayNum = "";
+                            }
+                            Button btnTemp = (Button) e.target;
+                            displayNum = displayNum + btnTemp.getLabel();
+                            txtDisplay.setText(displayNum);
+                        }
+                    }
+                }
             }
+            return true;
         }
-
         return super.action(e, o);
+    }
+
+    private class InnerCalculadora {
+    
+        
     }
 
     public static void main(String args[]) {
