@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.*;
 
 public class Calculadora extends Frame {
     private Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9;
@@ -56,15 +57,17 @@ public class Calculadora extends Frame {
 
         // Inicializar estado de calculadora
         punto = operando = true;
+
+        // Declarar los generadores de eventos
+        addWindowListener( new CloseWindow() );
     }
 
-    public boolean handleEvent(Event e) {
-        if( e.id == Event.WINDOW_DESTROY) {
-            hide();
-            dispose();
-            return true;
-        }
-        return super.handleEvent(e);
+    private class CloseWindow extends WindowAdapter {
+        @Override
+        public void windowClosing(WindowEvent e) {
+            setVisible(false);
+            dispose(); 
+        } 
     }
 
     public boolean action(Event e, Object o) {
@@ -119,11 +122,6 @@ public class Calculadora extends Frame {
             return true;
         }
         return super.action(e, o);
-    }
-
-    private class InnerCalculadora {
-    
-        
     }
 
     public static void main(String args[]) {
