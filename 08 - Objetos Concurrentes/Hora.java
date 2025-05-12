@@ -4,23 +4,52 @@
  * @author Roberto Salazar Márquez
  * @version 1.0
  */
-public class Hora extends Thread
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+public class Hora extends JFrame implements Runnable
 {
     // instance variables - Atributos de la Abstracción
     private int horas;
     private int minutos;
     private int segundos;
+    private JTextField texto;
+    private Thread hilo;
 
     /**
      * Constructor para objetos de la clase Hora sin Argumentos
      */
 
-    public Hora()
+    public Hora(String nombre)
     {
+        super(nombre);
         // initialise instance variables
         horas = 0;
         minutos = 0;
         segundos = 0;
+
+        setLayout(new FlowLayout());
+        texto = new JTextField(8);
+        texto.setEditable(false);
+        add(texto);
+        addWindowListener(new CloseWin());
+        setSize(230,90);
+        setVisible(true);
+
+        hilo = new Thread(this);
+        hilo.start();
+    }
+
+    private class CloseWin extends WindowAdapter {
+        @Override
+        public void windowClosing(WindowEvent e) {
+            // TODO Auto-generated method stub
+            setVisible(false);
+            dispose();
+        }
+        
     }
     
     /**
@@ -30,10 +59,21 @@ public class Hora extends Thread
 
     public Hora(int h)
     {
+        super("Hora");
         // initialise instance variables
         setHoras(h);
         setMinutos(0);
         setSegundos(0);
+        setLayout(new FlowLayout());
+        texto = new JTextField(8);
+        texto.setEditable(false);
+        add(texto);
+        addWindowListener(new CloseWin());
+        setSize(230,90);
+        setVisible(true);
+
+        hilo = new Thread(this);
+        hilo.start();
     }
     
     /**
@@ -43,10 +83,21 @@ public class Hora extends Thread
 
     public Hora(int h, int m)
     {
+        super("Hora");
         // initialise instance variables
         setHoras(h);
         setMinutos(m);
         setSegundos(0);
+        setLayout(new FlowLayout());
+        texto = new JTextField(8);
+        texto.setEditable(false);
+        add(texto);
+        addWindowListener(new CloseWin());
+        setSize(230,90);
+        setVisible(true);
+
+        hilo = new Thread(this);
+        hilo.start();
     }
     
     /**
@@ -54,12 +105,23 @@ public class Hora extends Thread
      * horas minutos y segundos.
      */
 
-    public Hora(int h, int m, int s)
+    public Hora(int h, int m, int s, String nombre)
     {
+        super(nombre);
         // initialise instance variables
         setHoras(h);
         setMinutos(m);
         setSegundos(s);
+        setLayout(new FlowLayout());
+        texto = new JTextField(8);
+        texto.setEditable(false);
+        add(texto);
+        addWindowListener(new CloseWin());
+        setSize(230,90);
+        setVisible(true);
+
+        hilo = new Thread(this);
+        hilo.start();
     }
     
     /**
@@ -69,10 +131,21 @@ public class Hora extends Thread
     
     public Hora(Hora hr)
     {
+        super("Hora");
         // initialise instance variables
         setHoras( hr.getHoras() );
         setMinutos( hr.getMinutos() );
         setSegundos( hr.getSegundos() );
+        setLayout(new FlowLayout());
+        texto = new JTextField(8);
+        texto.setEditable(false);
+        add(texto);
+        addWindowListener(new CloseWin());
+        setSize(230,90);
+        setVisible(true);
+
+        hilo = new Thread(this);
+        hilo.start();
     }
     
     /**
@@ -202,19 +275,18 @@ public class Hora extends Thread
         while (cont <= 100) {
             tick();
             try {
-                sleep(1000);
+                hilo.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println(toString());
+            texto.setText(toString());
             cont++;
         } 
     }
 
     public static void main(String[] args) {
-        Hora hora = new Hora(14,11,0);
-        hora.start();
-        Hora hora2 = new Hora();
-        hora2.start();
+        Hora hora = new Hora(14,11,0, "CDMX");
+        Hora hora2 = new Hora("New York");
+
     }
 }    
